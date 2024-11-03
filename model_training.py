@@ -5,8 +5,8 @@ from surprise import accuracy
 
 def train_model(data):
     """Train the recommendation model using SVD."""
-    reader = Reader(rating_scale=(0, 1))
-    surprise_data = Dataset.load_from_df(data[['customer_id', 'product_id', 'is_on_wishlist']], reader)
+    reader = Reader(rating_scale=(data['interaction_score'].min(), data['interaction_score'].max()))
+    surprise_data = Dataset.load_from_df(data[['customer_id', 'product_id', 'interaction_score']], reader)
 
     trainset, testset = train_test_split(surprise_data, test_size=0.2)
 
@@ -18,6 +18,7 @@ def train_model(data):
     accuracy.rmse(predictions)
 
     return algo
+
 
 
 def get_recommendations(user_id, data, algo, top_n=5):

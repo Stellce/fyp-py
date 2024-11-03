@@ -15,6 +15,10 @@ def generate_monthly_purchases(start, end, probability=0.8):
 
 # Generate the dataset
 data = []
+products_prices = {}
+for product_id in range(1, num_products + 1):
+    if product_id not in products_prices.keys():
+        products_prices[product_id] = np.random.randint(10, 500)
 
 for customer_id in range(1, num_customers + 1):
     for product_id in range(1, num_products + 1):
@@ -33,7 +37,7 @@ for customer_id in range(1, num_customers + 1):
                 'is_on_wishlist': np.random.choice([True, False]),
                 'is_in_cart': np.random.choice([True, False]),
                 'purchased_at': purchase_date,
-                'price': np.random.randint(10, 500)
+                'price': products_prices[product_id]
             })
 
 # Create DataFrame
@@ -50,7 +54,7 @@ for customer_id in range(1, num_customers + 1):
             'is_on_wishlist': False,
             'is_in_cart': False,
             'purchased_at': pd.NaT,
-            'price': np.random.randint(10, 500)
+            'price': products_prices[skipped_product_id]
         }])
         df = pd.concat([df, new_row], ignore_index=True)
 
