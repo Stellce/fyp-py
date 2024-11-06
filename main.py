@@ -25,6 +25,6 @@ def main():
     print(f"Recommendations for user {user_id}: {recommendations}")
 
 if __name__ == '__main__':
-    # while True:
+    while True:
         main()
 

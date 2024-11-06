@@ -40,7 +40,6 @@ for customer_id in range(1, num_customers + 1):
                 'price': products_prices[product_id]
             })
 
-# Create DataFrame
 df = pd.DataFrame(data)
 
 # Add missing months for customers who skipped a purchase (for testing the AI)
